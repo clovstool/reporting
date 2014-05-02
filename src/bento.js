@@ -1,9 +1,10 @@
 /* exported Bento */
-/* global _, BTG*/
+/* global _, BTG, Util*/
 function Bento() {
 	this.initialize.apply(this, arguments);
 }
 Bento.prototype = {
+	logger: new Util.Logger("@@package-name"),
 	// placeholder test data
 	bentoConfig: {
 		applicationContext: "http://pjs.com",
@@ -47,34 +48,27 @@ Bento.prototype = {
 	hasPaused: false,
 	hasContentEnd: false,
 	initialize: function(options) {
-		var player = this.player = options.player;
 		this.options = options;
-		this.logger = player.logger;
-		_.bindAll(this,
-			"onPlayerReady",
-			"onMediaStart",
-			"onMediaEnd",
-			"onPlayhead",
-			"onPlayStateChange");
+		_.bindAll(this, "onReady", "onMetadata", "onMediaStart", "onMediaEnd", "onPlayheadUpdate", "onStateChange");
 		this.bento = BTG.Bento;
 		this.bentoConfig = _.extend(BTG.ConfigSettings(), this.bentoConfig, this.options.config);
 		this.bento.onConfig(this.bentoConfig);
-		player.once("metadata", this.onPlayerReady);
-		player.on("stateChange", this.onPlayStateChange);
-		player.on("playhead", this.onPlayhead);
-		player.on("mediaStart", this.onMediaStart);
-		player.on("mediaEnd", this.onMediaEnd);
+	},
+	onReady: function() {
+		// fires on ready? if needed?
+		this.logger.log("onReady");
 	},
 	onMediaStart: function() {
+		this.logger.log("onMediaStart");
 		this.hasPlayed = false;
 	},
-	onPlayerReady: function(event) {
-		this.logger.log("onPlayerReady, initialize Bento");
+	onMetadata: function(event) {
+		this.logger.log("onMetadata");
 		var bentoMetadata = _.extend(BTG.Metadata(), this.bentoMetadata, this.options.metadata, event.data);
 		this.bento.onMetadata(bentoMetadata);
 	},
-	onPlayhead: function(event) {
-		var playhead = event.data;
+	onPlayheadUpdate: function(event) {
+		var playhead = this.playhead = event.data;
 		this.bento.onPlayheadUpdate(playhead);
 		if ((this.isBuffering || this.hasSeekStart) && this.hasPlayed) {
 			this.isBuffering = false;
@@ -82,10 +76,11 @@ Bento.prototype = {
 			this.bento.onResumePlay(playhead);
 		}
 	},
-	onPlayStateChange: function(event) {
-		var playhead = this.player.playhead,
-			bento = this.bento;
-		var state = event.data;
+	onStateChange: function(event) {
+		this.logger.log("onStateChange", event.data);
+		var playhead = this.playhead,
+			bento = this.bento,
+			state = event.data;
 		switch (state) {
 			case "playing":
 				if (!this.hasPlayed) {
@@ -125,6 +120,7 @@ Bento.prototype = {
 		}
 	},
 	onMediaEnd: function() {
+		this.logger.log("onMediaEnd");
 		this.hasContentEnd = true;
 	}
 };

@@ -1,11 +1,11 @@
 (function(root, factory) {
 	/* global MTVNPlayer*/
 	if (typeof MTVNPlayer === "object") {
-		MTVNPlayer.require("_", function(_) {
-			factory(_);
+		MTVNPlayer.require(["_", "mtvn-util"], function() {
+			MTVNPlayer.provide("@@package-name", factory.apply(null, arguments));
 		});
 	}
-}(this, function(_) {
+}(this, function(_, Util) {
 	/* jshint unused:false */
 	// Reporting code has the deps in needs.
 	/* global Reporting */
