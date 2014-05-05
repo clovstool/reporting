@@ -2,12 +2,15 @@
 	"name": "pjs-reporting",
 	"version": "0.1.0",
 	"author": "Brent Smith <brentsmithis@gmail.com>",
-	"contributors": [
-		{
-			"name": "Gianni Ferullo",
-			"email": "giannif@gmail.com"
-		}
-	],
+	"scripts": {
+		"test": "testem ci -t dist/test/test.html -l PhantomJS",
+		"release": "grunt release",
+		"lint": "jshint src"
+	},
+	"contributors": [{
+		"name": "Gianni Ferullo",
+		"email": "giannif@gmail.com"
+	}],
 	"private": true,
 	"description": "Manager for all p-js reporting modules",
 	"repository": {
@@ -16,6 +19,7 @@
 	},
 	"devDependencies": {
 		"grunt": "0.4.x",
+		"testem": "x.x.x",
 		"grunt-rigger": "*",
 		"grunt-contrib": "0.4.x",
 		"grunt-contrib": "0.4.x",
