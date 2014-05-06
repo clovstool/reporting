@@ -2,7 +2,7 @@
 /* global Bento*/
 var Reporting = {
 	version: "0.1.0",
-	build: "Mon May 05 2014 17:15:05"
+	build: "Tue May 06 2014 10:53:06"
 };
 // =========BTG BENTO START==========
 (function(window){
@@ -8832,7 +8832,7 @@ Bento.prototype = {
 	bentoConfig: {
 
 		applicationContext:	"media.mtvnservices.com",
-		applicationName:	null,
+		applicationName:	"Network Player",
 		applicationOrigin:	null,
 		applicationType:	null,
 		comscoreAdTracking:	true,

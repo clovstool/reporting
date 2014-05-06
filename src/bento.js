@@ -9,7 +9,7 @@ Bento.prototype = {
 	bentoConfig: {
 
 		applicationContext:	"media.mtvnservices.com",
-		applicationName:	null,
+		applicationName:	"Network Player",
 		applicationOrigin:	null,
 		applicationType:	null,
 		comscoreAdTracking:	true,

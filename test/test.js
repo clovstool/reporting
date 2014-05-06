@@ -8,7 +8,12 @@ test("bento", function() {
 	bento.onMetadata({data:{}});
 	bento.onReady();
 	bento.onStateChange({data: "playing"});
-	//bento.onPlayheadUpdate({
-	//	data: 10
-	//});
+	var interval = setInterval(function(){
+		bento.onPlayheadUpdate({data:bento.playhead + 1});
+		if (bento.playhead == 5){
+			bento.onStateChange({data: "buffering"});
+			bento.onStateChange({data: "playing"});
+			clearInterval(interval);
+		}
+	},1000);
 });
