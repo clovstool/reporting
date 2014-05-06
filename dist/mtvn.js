@@ -13,7 +13,7 @@
 	/* global Bento*/
 	var Reporting = {
 		version: "0.1.0",
-		build: "Tue May 06 2014 10:53:06"
+		build: "Tue May 06 2014 16:32:28"
 	};
 	// =========BTG BENTO START==========
 	(function(window){
@@ -9019,6 +9019,17 @@
 			BTG.Log.enableLogging();
 			this.bentoConfig = _.extend(BTG.ConfigSettings(), this.bentoConfig, this.options.config);
 			this.bento.onConfig(this.bentoConfig);
+			if (this.options.currentMetadata){
+				this.logger.log("using currentMetadata");
+				var bentoMetadata = _.extend(BTG.Metadata(), this.bentoMetadata, this.options.currentMetadata);
+				this.bento.onMetadata(bentoMetadata);
+			}
+			if (this.options.playhead){
+				this.playhead = this.options.playhead;
+			}
+			if (this.options.state){
+				this.onStateChange({data: this.options.state});
+			}
 		},
 		onReady: function() {
 			// fires on ready? if needed?
@@ -9030,7 +9041,7 @@
 		},
 		onMetadata: function(event) {
 			this.logger.log("onMetadata");
-			var bentoMetadata = _.extend(BTG.Metadata(), this.bentoMetadata, this.options.metadata, event.data);
+			var bentoMetadata = _.extend(BTG.Metadata(), this.bentoMetadata, this.options.currentMetadata, event.data);
 			this.bento.onMetadata(bentoMetadata);
 		},
 		onPlayheadUpdate: function(event) {

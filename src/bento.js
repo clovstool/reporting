@@ -194,7 +194,7 @@ Bento.prototype = {
 			this.playhead = this.options.playhead;
 		}
 		if (this.options.state){
-			onStateChange({data: this.options.state});
+			this.onStateChange({data: this.options.state});
 		}
 	},
 	onReady: function() {
