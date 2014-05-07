@@ -20,8 +20,10 @@ module.exports = function(grunt) {
 				options: {
 					sourceMap: true
 				},
-				src: "dist/<%=pkg.name%>.js",
-				dest: "dist/<%=pkg.name%>.min.js"
+				files: {
+					"dist/<%=pkg.name%>.min.js": ["dist/<%=pkg.name%>.js"],
+					"dist/mtvn.min.js": ["dist/mtvn.js"]
+				}
 			}
 		},
 		rig: {
