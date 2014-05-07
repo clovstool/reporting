@@ -1,6 +1,6 @@
 {
 	"name": "pjs-reporting",
-	"version": "0.1.0",
+	"version": "0.0.3",
 	"author": "Brent Smith <brentsmithis@gmail.com>",
 	"scripts": {
 		"test": "testem ci -t dist/test/test.html -l PhantomJS",
